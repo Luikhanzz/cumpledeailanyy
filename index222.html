@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invitación Alany</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  width:100vw;
+  min-height:100vh;
+  overflow:hidden;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial,sans-serif;
+}
+
+.contenedor{
+  position:relative;
+  width:100vw;
+  height:100vh;
+}
+
+.imagen-principal{
+  width:100vw;
+  height:100vh;
+  object-fit:contain;
+  background:rgb(190,177,177);
+}
+
+/* Texto centrado y mejor acomodado */
+.texto-ubicacion{
+  position:absolute;
+  left:58%;
+  top:78%;
+  transform:translate(-50%,-50%);
+  font-size:13px;
+  font-weight:bold;
+  color:#000000;
+  text-align:center;
+  z-index:999;
+  line-height:1.6;
+  padding:10px;
+  width:90%;
+}
+
+/* Botón música */
+.boton-musica{
+  position:fixed;
+  bottom:80px;
+  right:15px;
+  background:#ff69b4;
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:25px;
+  cursor:pointer;
+  font-size:14px;
+  z-index:1000;
+  box-shadow:0 4px 8px rgba(0,0,0,0.2);
+}
+
+.boton-musica:hover{
+  background:#ff1493;
+}
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+  <img src="foto1.png" alt="Imagen Principal" class="imagen-principal">
+
+  <!-- TEXTO SIN WHATSAPP -->
+  <p class="texto-ubicacion">
+   <strong> Para más información,<br>
+    escriba al número:<br> </strong>
+    <strong>+593 99 151 9471</strong>
+  </p>
+
+</div>
+
+<audio id="bg-music" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<button class="boton-musica" id="btn-musica">
+  🎵 Música
+</button>
+
+<script>
+const music = document.getElementById("bg-music");
+const btnMusica = document.getElementById("btn-musica");
+
+const tiempoGuardado = localStorage.getItem("musicTime");
+
+if (tiempoGuardado) {
+  music.currentTime = tiempoGuardado;
+}
+
+document.addEventListener("click", () => {
+  music.play();
+}, { once:true });
+
+setInterval(() => {
+  localStorage.setItem("musicTime", music.currentTime);
+}, 1000);
+
+btnMusica.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    btnMusica.textContent = "🔊 Música";
+  } else {
+    music.pause();
+    btnMusica.textContent = "🎵 Música";
+  }
+});
+</script>
+
+</body>
+</html>

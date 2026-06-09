@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación Alany</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      width:100vw;
+      height:100vh;
+      overflow:hidden;
+      background:black;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-family:Arial, sans-serif;
+    }
+
+    .contenedor{
+      position:relative;
+      width:100vw;
+      height:100vh;
+    }
+
+    .imagen-principal{
+      width:100vw;
+      height:100vh;
+     object-fit:contain;
+      background:rgb(190, 177, 177);
+    }
+
+    .boton-invitacion{
+      position:absolute;
+      top:58%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      width:45%;
+      height:12%;
+      cursor:pointer;
+    }
+
+    /* Botón música */
+    .boton-musica{
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      background:#ff69b4;
+      color:white;
+      border:none;
+      padding:12px 20px;
+      border-radius:25px;
+      cursor:pointer;
+      font-size:14px;
+      z-index:100;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .boton-musica:hover{
+      background:#ff1493;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contenedor">
+
+    <!-- Imagen -->
+    <img src="invi.jpg" alt="Invitación" class="imagen-principal">
+
+    <!-- Botón invisible -->
+    <a href="index222.html" class="boton-invitacion"></a>
+
+  </div>
+
+  <!-- Música -->
+  <audio id="bg-music" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Botón -->
+  <button class="boton-musica" id="btn-musica">
+    🎵 Música
+  </button>
+
+  <script>
+  const music = document.getElementById("bg-music");
+  const btnMusica = document.getElementById("btn-musica");
+
+  // Recuperar tiempo guardado
+  const tiempoGuardado = localStorage.getItem("musicTime");
+
+  if (tiempoGuardado) {
+    music.currentTime = tiempoGuardado;
+  }
+
+  // Reproducir al primer click
+  document.addEventListener("click", () => {
+    music.play();
+  }, { once:true });
+
+  // Guardar tiempo constantemente
+  setInterval(() => {
+    localStorage.setItem("musicTime", music.currentTime);
+  }, 1000);
+
+  // Botón música
+  btnMusica.addEventListener("click", () => {
+
+    if (music.paused) {
+      music.play();
+      btnMusica.textContent = "🔊 Música";
+    } else {
+      music.pause();
+      btnMusica.textContent = "🎵 Música";
+    }
+
+  });
+</script>
+
+</body>
+</html>
